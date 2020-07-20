@@ -77,6 +77,10 @@
 //A用例的save值为：
 username=$.username;id=$.userId
 
+currentChat=$.chatId;dialogId=$.dialogId
+
+
+
 //此时若B用例中param值填写为：
 {"key":"apikey","userId":"${id}","username":"${username}"}
 //实际执行时会替换为：
@@ -110,3 +114,12 @@ username=$.username;id=$.userId
 - 支持delete，put等方法
 - 支持验证数据库
 - 待加+++++
+
+token  4DBA46139BB938558B866242ED300322C5AF505A36CC0EE96686CA52AE0A556A05
+
+​            4DBA46139BB938558B866242ED300727C5AF505A36CC0EE96686CA53AB0D526904
+
+
+
+
+
