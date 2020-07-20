@@ -2,11 +2,16 @@ package test.com.sen.api;
 
 import com.alibaba.fastjson.JSON;
 import com.sen.api.beans.ApiDataBean;
+import com.sen.api.command.Command;
+import com.sen.api.command.CommandFactory;
+import com.sen.api.command.domain.DialogCase;
 import com.sen.api.configs.ApiConfig;
+import com.sen.api.excel.ExcelReader;
 import com.sen.api.excepions.ErrorRespStatusException;
 import com.sen.api.listeners.AutoTestListener;
 import com.sen.api.listeners.RetryListener;
 import com.sen.api.utils.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,6 +24,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.dom4j.DocumentException;
 import org.testng.Assert;
 import org.testng.ITestContext;
@@ -26,6 +32,7 @@ import org.testng.annotations.*;
 import org.testng.annotations.Optional;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Paths;
@@ -65,6 +72,8 @@ public class ApiTest extends TestBase {
 	 */
 	protected List<ApiDataBean> dataList = new ArrayList<ApiDataBean>();
 
+	protected List<DialogCase> dialogCaseList = new ArrayList<>();
+
 	private static HttpClient client;
 
 	/**
@@ -81,6 +90,8 @@ public class ApiTest extends TestBase {
 		// 获取基础数据
 		rootUrl = apiConfig.getRootUrl();
 		rooUrlEndWithSlash = rootUrl.endsWith("/");
+
+
 
 		// 读取 param，并将值保存到公共数据map
 		Map<String, String> params = apiConfig.getParams();
@@ -103,16 +114,46 @@ public class ApiTest extends TestBase {
 
 	@Parameters({ "excelPath", "sheetName" })
 	@BeforeTest
-	public void readData(@Optional("case/api-data.xls") String excelPath, @Optional("Sheet1") String sheetName) throws DocumentException {
+	public void readData(@Optional("case/api-data.xls") String excelPath, @Optional("Sheet1") String sheetName) throws DocumentException, IOException, InvalidFormatException {
+
+		// 获得所有的dataList
 		dataList = readExcelData(ApiDataBean.class, excelPath.split(";"),
 				sheetName.split(";"));
 		System.out.println(dataList.toString());
+
+//		String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://autoTestCase.xlsx" : System.getProperty("excelPath");
+//		dialogCaseList = new ExcelReader(path).read();
+//		System.out.println(dialogCaseList.toString());
+
 	}
 
 	/**
-	 * 过滤数据，run标记为Y的执行。
-	 *
-	 * @return
+	 * @return void
+	 * @Author zhangxl
+	 * @Description //TODO  转换数据 DialogCase 2 dataList  先搞定input 生成一个 Iterator
+	 * @Date 14:26 2020/7/20
+	 * @Param []
+	 **/
+	public List<ApiDataBean>  transferData(List<DialogCase> dialogCases) {
+		DialogCase dialogCase = dialogCases.get(0);
+		for (int i = 0; i <dialogCase.getProcesses().size() ; i++) {
+			String[] exs = dialogCase.getProcesses().get(i).split(":");
+			Command command = CommandFactory.getInstance().get(exs[0]);
+			if (null == command) {
+				throw new RuntimeException("未找到【"+exs[0]+"】操作");
+			}
+		    //input 的apiBean
+			ApiDataBean apiDataBean=command.exec(exs[0], exs.length > 1 ? exs[1] : null);
+		}
+
+		return null;
+	}
+
+
+	/**
+	 * 过滤数据，run标记为Y的执行。  获得apiData
+	 *apiDatas
+	 * @return  返回
 	 * @throws DocumentException
 	 */
 	@DataProvider(name = "apiDatas")
@@ -124,9 +165,10 @@ public class ApiTest extends TestBase {
 				dataProvider.add(new Object[] { data });
 			}
 		}
-		return dataProvider.iterator();
+		return dataProvider.iterator();  //返回该集合的迭代器
 	}
 
+    // 遍历迭代器  判断是否有内容，有内容就取走
 	@Test(dataProvider = "apiDatas")
 	public void apiTest(ApiDataBean apiDataBean) throws Exception {
 		ReportUtil.log("--- test start ---");
@@ -136,13 +178,17 @@ public class ApiTest extends TestBase {
 					apiDataBean.getSleep()));
 			Thread.sleep(apiDataBean.getSleep() * 1000);
 		}
+
+		//获得param
 		String apiParam = buildRequestParam(apiDataBean);
-		// 封装请求方法
+
+		// 封装请求方法 获得method
 		HttpUriRequest method = parseHttpRequest(apiDataBean.getUrl(),
 				apiDataBean.getMethod(), apiParam);
+		//定义响应Data
 		String responseData;
 		try {
-			// 执行
+			// 执行 获得response
 			HttpResponse response = client.execute(method);
 			int responseStatus = response.getStatusLine().getStatusCode();
 			ReportUtil.log("返回状态码："+responseStatus);
@@ -158,8 +204,11 @@ public class ApiTest extends TestBase {
 //							+ responseStatus);
 //				}
 //			}
+			//获得respEntity
 			HttpEntity respEntity = response.getEntity();
 			Header respContentType = response.getFirstHeader("Content-Type");
+
+
 			if (respContentType != null && respContentType.getValue() != null 
 					&&  (respContentType.getValue().contains("download") || respContentType.getValue().contains("octet-stream"))) {
 				String conDisposition = response.getFirstHeader(
@@ -176,6 +225,8 @@ public class ApiTest extends TestBase {
 			} else {
 //				responseData = DecodeUtil.decodeUnicode(EntityUtils
 //						.toString(respEntity));
+
+				//responseData即是response请求param
 				responseData=EntityUtils.toString(respEntity, "UTF-8");
 			}
 		} catch (Exception e) {
@@ -185,12 +236,17 @@ public class ApiTest extends TestBase {
 		}
 		// 输出返回数据log
 		ReportUtil.log("resp:" + responseData);
-		// 验证预期信息
-		verifyResult(responseData, apiDataBean.getVerify(),
-				apiDataBean.isContains());
+//		// 验证预期信息
+//		verifyResult(responseData, apiDataBean.getVerify(),
+//				apiDataBean.isContains());
+
+
 
 		// 对返回结果进行提取保存。
 		saveResult(responseData, apiDataBean.getSave());
+		// 验证预期信息。
+		verifyResult(responseData, apiDataBean.getVerify(),
+				apiDataBean.isContains());
 	}
 
 	private String buildRequestParam(ApiDataBean apiDataBean) {
