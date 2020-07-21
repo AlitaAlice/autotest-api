@@ -1,0 +1,69 @@
+Index: .classpath
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<classpath>\r\n\t<classpathentry kind=\"src\" output=\"target/classes\" path=\"src/main/java\">\r\n\t\t<attributes>\r\n\t\t\t<attribute name=\"optional\" value=\"true\"/>\r\n\t\t\t<attribute name=\"maven.pomderived\" value=\"true\"/>\r\n\t\t</attributes>\r\n\t</classpathentry>\r\n\t<classpathentry kind=\"src\" output=\"target/test-classes\" path=\"src/test/java\">\r\n\t\t<attributes>\r\n\t\t\t<attribute name=\"optional\" value=\"true\"/>\r\n\t\t\t<attribute name=\"maven.pomderived\" value=\"true\"/>\r\n\t\t</attributes>\r\n\t</classpathentry>\r\n\t<classpathentry kind=\"con\" path=\"org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER\">\r\n\t\t<attributes>\r\n\t\t\t<attribute name=\"maven.pomderived\" value=\"true\"/>\r\n\t\t</attributes>\r\n\t</classpathentry>\r\n\t<classpathentry kind=\"con\" path=\"org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8\">\r\n\t\t<attributes>\r\n\t\t\t<attribute name=\"maven.pomderived\" value=\"true\"/>\r\n\t\t</attributes>\r\n\t</classpathentry>\r\n\t<classpathentry kind=\"output\" path=\"target/classes\"/>\r\n</classpath>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .classpath	(revision 0edfd7ab0ce6e84297f17fdc98e42286e12fe364)
++++ .classpath	(date 1595223859075)
+@@ -1,26 +1,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<classpath>
+-	<classpathentry kind="src" output="target/classes" path="src/main/java">
+-		<attributes>
+-			<attribute name="optional" value="true"/>
+-			<attribute name="maven.pomderived" value="true"/>
+-		</attributes>
+-	</classpathentry>
+-	<classpathentry kind="src" output="target/test-classes" path="src/test/java">
+-		<attributes>
+-			<attribute name="optional" value="true"/>
+-			<attribute name="maven.pomderived" value="true"/>
+-		</attributes>
+-	</classpathentry>
+-	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+-		<attributes>
+-			<attribute name="maven.pomderived" value="true"/>
+-		</attributes>
+-	</classpathentry>
+-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+-		<attributes>
+-			<attribute name="maven.pomderived" value="true"/>
+-		</attributes>
+-	</classpathentry>
+-	<classpathentry kind="output" path="target/classes"/>
+-</classpath>
+Index: .project
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<projectDescription>\r\n\t<name>api</name>\r\n\t<comment></comment>\r\n\t<projects>\r\n\t</projects>\r\n\t<buildSpec>\r\n\t\t<buildCommand>\r\n\t\t\t<name>org.eclipse.jdt.core.javabuilder</name>\r\n\t\t\t<arguments>\r\n\t\t\t</arguments>\r\n\t\t</buildCommand>\r\n\t\t<buildCommand>\r\n\t\t\t<name>org.eclipse.m2e.core.maven2Builder</name>\r\n\t\t\t<arguments>\r\n\t\t\t</arguments>\r\n\t\t</buildCommand>\r\n\t</buildSpec>\r\n\t<natures>\r\n\t\t<nature>org.eclipse.jdt.core.javanature</nature>\r\n\t\t<nature>org.eclipse.m2e.core.maven2Nature</nature>\r\n\t</natures>\r\n</projectDescription>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- .project	(revision 0edfd7ab0ce6e84297f17fdc98e42286e12fe364)
++++ .project	(date 1595223859063)
+@@ -1,23 +1,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<projectDescription>
+-	<name>api</name>
+-	<comment></comment>
+-	<projects>
+-	</projects>
+-	<buildSpec>
+-		<buildCommand>
+-			<name>org.eclipse.jdt.core.javabuilder</name>
+-			<arguments>
+-			</arguments>
+-		</buildCommand>
+-		<buildCommand>
+-			<name>org.eclipse.m2e.core.maven2Builder</name>
+-			<arguments>
+-			</arguments>
+-		</buildCommand>
+-	</buildSpec>
+-	<natures>
+-		<nature>org.eclipse.jdt.core.javanature</nature>
+-		<nature>org.eclipse.m2e.core.maven2Nature</nature>
+-	</natures>
+-</projectDescription>

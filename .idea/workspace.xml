@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dadda484-541e-4a5a-940c-6c219b5fdaef" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="自动化测试" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="alwaysUpdateSnapshots" value="true" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../360Downloads/apache-maven-3.5.4-bin/apache-maven-3.5.4" />
+        <option name="userSettingsFile" value="C:\Users\16508\.m2\settings-lianxin.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="createModuleGroups" value="true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
+  </component>
+  <component name="ProjectId" id="1eoB79gkMr8TnMqcDUkZr3iZZ9t" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com/sen/api" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.sen.api.command.impl" />
+      <recent name="com.sen.api.functions" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\job\api_autotest\src\main\java\com\sen\api" />
+      <recent name="E:\job\api_autotest\command\domain" />
+      <recent name="E:\job\api_autotest" />
+      <recent name="E:\job\api_autotest\case" />
+    </key>
+  </component>
+  <component name="RunManager" selected="TestNG.E:/job/api_autotest/testng.xml">
+    <configuration name="TokenFunction" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.sen.api.functions.TokenFunction" />
+      <module name="api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sen.api.functions.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ApiTest.apiTest" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="api" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.com.sen.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.com.sen.api" />
+      <option name="MAIN_CLASS_NAME" value="test.com.sen.api.ApiTest" />
+      <option name="METHOD_NAME" value="apiTest" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="E:/job/api_autotest/testng.xml" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="api" />
+      <option name="SUITE_NAME" value="$PROJECT_DIR$/testng.xml" />
+      <option name="TEST_OBJECT" value="SUITE" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="TestNG.E:/job/api_autotest/testng.xml" />
+        <item itemvalue="Application.TokenFunction" />
+        <item itemvalue="TestNG.ApiTest.apiTest" />
+        <item itemvalue="TestNG.E:/job/api_autotest/testng.xml" />
+        <item itemvalue="Application.TokenFunction" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\16508\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dadda484-541e-4a5a-940c-6c219b5fdaef" name="Default Changelist" comment="" />
+      <created>1594977894186</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1594977894186</updated>
+      <workItem from="1594977896847" duration="28955000" />
+      <workItem from="1595207419259" duration="10062000" />
+      <workItem from="1595223728826" duration="295000" />
+      <workItem from="1595224041683" duration="38380000" />
+    </task>
+    <task id="LOCAL-00001" summary="update">
+      <created>1595223330395</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1595223330395</updated>
+    </task>
+    <task id="LOCAL-00002" summary="update">
+      <created>1595250884732</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1595250884732</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update">
+      <created>1595321597452</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1595321597453</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1162" y="567" key="#Notifications" timestamp="1595321645038">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1162" y="567" key="#Notifications/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321645038" />
+    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594978185958">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="734" y="360" key="#com.intellij.execution.impl.EditConfigurationsDialog/278.1440.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1594978185958" />
+    <state x="1013" y="505" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1595314708708">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1013" y="505" key="#com.intellij.fileTypes.FileTypeChooser/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595314708708" />
+    <state x="1030" y="406" key="#com.intellij.ide.util.MemberChooser" timestamp="1595313164475">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1030" y="406" key="#com.intellij.ide.util.MemberChooser/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595313164475" />
+    <state x="955" y="628" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog" timestamp="1595225604866">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="955" y="628" key="#com.intellij.refactoring.move.MoveHandler.SelectRefactoringDialog/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595225604866" />
+    <state x="878" y="269" key="CommitChangelistDialog2" timestamp="1595321596600">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="878" y="269" key="CommitChangelistDialog2/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321596600" />
+    <state x="248" y="123" key="DiffContextDialog" timestamp="1595223780854">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="248" y="123" key="DiffContextDialog/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595223780854" />
+    <state x="1060" y="459" key="FileChooserDialogImpl" timestamp="1595224872379">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1060" y="459" key="FileChooserDialogImpl/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595224872379" />
+    <state x="1060" y="459" key="FileChooserDialogImpl/278.1440.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1594978078131" />
+    <state x="1091" y="606" key="Github.CreateGistDialog" timestamp="1595223573261">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1091" y="606" key="Github.CreateGistDialog/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595223573261" />
+    <state width="2517" height="224" key="GridCell.Tab.0.bottom" timestamp="1595321700457">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="224" key="GridCell.Tab.0.bottom/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321700457" />
+    <state width="2517" height="224" key="GridCell.Tab.0.center" timestamp="1595321700457">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="224" key="GridCell.Tab.0.center/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321700457" />
+    <state width="2517" height="224" key="GridCell.Tab.0.left" timestamp="1595321700457">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="224" key="GridCell.Tab.0.left/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321700457" />
+    <state width="2517" height="224" key="GridCell.Tab.0.right" timestamp="1595321700457">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="224" key="GridCell.Tab.0.right/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321700457" />
+    <state width="2517" height="224" key="GridCell.Tab.1.bottom" timestamp="1595321700457">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="224" key="GridCell.Tab.1.bottom/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321700457" />
+    <state width="2517" height="224" key="GridCell.Tab.1.center" timestamp="1595321700457">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="224" key="GridCell.Tab.1.center/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321700457" />
+    <state width="2517" height="224" key="GridCell.Tab.1.left" timestamp="1595321700457">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="224" key="GridCell.Tab.1.left/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321700457" />
+    <state width="2517" height="224" key="GridCell.Tab.1.right" timestamp="1595321700457">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="224" key="GridCell.Tab.1.right/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321700457" />
+    <state x="810" y="360" key="Maven.ArtifactSearchDialog" timestamp="1595224942273">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="810" y="360" key="Maven.ArtifactSearchDialog/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595224942273" />
+    <state x="906" y="448" key="NewModule_or_Project.wizard" timestamp="1595059410862">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="906" y="448" key="NewModule_or_Project.wizard/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595059410862" />
+    <state x="781" y="349" key="SettingsEditor" timestamp="1595321672982">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="781" y="349" key="SettingsEditor/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321672982" />
+    <state x="781" y="349" key="SettingsEditor/278.1440.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1594978079292" />
+    <state x="1032" y="401" key="VCS.ChangeListViewerDialog" timestamp="1595223185568">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1032" y="401" key="VCS.ChangeListViewerDialog/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595223185568" />
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2" timestamp="1595250893081">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="872" y="438" key="Vcs.Push.Dialog.v2/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595250893081" />
+    <state width="687" height="714" key="XDebugger.FullValuePopup" timestamp="1595319951424">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="687" height="714" key="XDebugger.FullValuePopup/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595319951424" />
+    <state x="92" y="92" width="2376" height="1226" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1595321673468">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="92" y="92" width="2376" height="1226" key="com.intellij.history.integration.ui.views.FileHistoryDialog/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595321673468" />
+    <state x="1073" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595250867252">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1073" y="618" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595250867252" />
+    <state x="824" y="434" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1595302609701">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="824" y="434" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595302609701" />
+    <state x="982" y="229" width="596" height="744" key="find.popup" timestamp="1595300490617">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="982" y="229" width="596" height="744" key="find.popup/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595300490617" />
+    <state x="1040" y="417" key="git4idea.branch.GitSmartOperationDialog" timestamp="1595223926891">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1040" y="417" key="git4idea.branch.GitSmartOperationDialog/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595223926891" />
+    <state x="1061" y="604" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1595223556148">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1061" y="604" key="git4idea.remote.GitConfigureRemotesDialog/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595223556148" />
+    <state x="791" y="173" width="1251" height="881" key="new project wizard" timestamp="1595235996204">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="791" y="173" width="1251" height="881" key="new project wizard/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595235996204" />
+    <state x="1110" y="496" key="svn.repositoryBrowser" timestamp="1595223518234">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1110" y="496" key="svn.repositoryBrowser/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595223518234" />
+    <state x="1077" y="467" key="svn4idea.import.options" timestamp="1595223514160">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="1077" y="467" key="svn4idea.import.options/2560.0.1536.840/0.0.2560.1410@0.0.2560.1410" timestamp="1595223514160" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo typeName="com.sen.api.beans.ApiDataBean" fieldName="param" />
+        <PinnedItemInfo typeName="com.sen.api.beans.ApiDataBean" fieldName="contains" />
+      </pinned-members>
+    </pin-to-top-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/api$E__job_api_autotest_testng_xml.ic" NAME="$PROJECT_DIR$/testng.xml Coverage Results" MODIFIED="1595310309767" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

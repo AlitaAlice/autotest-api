@@ -55,6 +55,7 @@ public class ApiTest extends TestBase {
 	 */
 	private static boolean requestByFormData = false;
 
+
 	/**
 	 * 配置
 	 */
