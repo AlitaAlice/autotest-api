@@ -31,4 +31,10 @@ public interface CommandConstant {
 
     String SELECT_DEFINE = "selectdefine";
 
+    String INITIAL = "initial";
+
+    String CLOSE = "close";
+
+    String CHAT = "chat";
+
 }

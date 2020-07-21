@@ -74,6 +74,8 @@ public class ApiTest extends TestBase {
 
 	protected List<DialogCase> dialogCaseList = new ArrayList<>();
 
+	protected List<ApiDataBean> dataBean = new ArrayList<>();
+
 	private static HttpClient client;
 
 	/**
@@ -119,13 +121,14 @@ public class ApiTest extends TestBase {
 		// 获得所有的dataList
 		dataList = readExcelData(ApiDataBean.class, excelPath.split(";"),
 				sheetName.split(";"));
-		System.out.println(dataList.toString());
+		//System.out.println(dataList.toString());
 
 //		String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://autoTestCase.xlsx" : System.getProperty("excelPath");
 //		dialogCaseList = new ExcelReader(path).read();
-//		System.out.println(dialogCaseList.toString());
-
+		//System.out.println(dialogCaseList.toString());
 	}
+
+
 
 	/**
 	 * @return void
@@ -134,18 +137,46 @@ public class ApiTest extends TestBase {
 	 * @Date 14:26 2020/7/20
 	 * @Param []
 	 **/
-	public List<ApiDataBean>  transferData(List<DialogCase> dialogCases) {
-		DialogCase dialogCase = dialogCases.get(0);
-		for (int i = 0; i <dialogCase.getProcesses().size() ; i++) {
-			String[] exs = dialogCase.getProcesses().get(i).split(":");
-			Command command = CommandFactory.getInstance().get(exs[0]);
-			if (null == command) {
-				throw new RuntimeException("未找到【"+exs[0]+"】操作");
-			}
-		    //input 的apiBean
-			ApiDataBean apiDataBean=command.exec(exs[0], exs.length > 1 ? exs[1] : null);
-		}
+	//@BeforeTest
+	public List<ApiDataBean>  transferData() throws IOException, InvalidFormatException {
 
+		String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://autoTestCase4.xlsx" : System.getProperty("excelPath");
+		dialogCaseList = new ExcelReader(path).read();
+		System.out.println(dialogCaseList.toString());
+//		String[] exs = new String[3];
+//		for (int i = 0; i <dialogCaseList.size() ; i++) {
+			DialogCase dialogCase = dialogCaseList.get(0);
+			for (int j = 0; j <dialogCase.getProcesses().size() ; j++)
+			{
+//				for(String retavl:dialogCase.getProcesses().get(j).split(":"))
+//				{
+//					int k = 0;
+//					exs[k] = retavl;
+//					k++;
+//				}
+//				System.out.println(exs.toString());
+				String[] exs = dialogCase.getProcesses().get(j).split(":");
+				System.out.println(exs.toString());
+				Command command = CommandFactory.getInstance().get(exs[0]);
+				if (null == command) {
+					throw new RuntimeException("未找到【"+exs[0]+"】操作");
+				}
+				//input 的apiBean
+				//ApiDataBean apiDataBean=command.exec(exs[0], exs.length > 1 ? exs[1] : null);
+				if (exs.length == 3) {
+					ApiDataBean apiDataBean = command.exec(exs[0], exs[1], exs[2]);
+					dataBean.add(apiDataBean);
+				}
+				else if (exs.length == 2) {
+					ApiDataBean apiDataBean = command.exec(exs[0], exs[1], null);
+					dataBean.add(apiDataBean);
+				}
+
+			}
+
+			System.out.println("dataBean："+dataBean.toString());
+
+//		}
 		return null;
 	}
 
@@ -168,7 +199,25 @@ public class ApiTest extends TestBase {
 		return dataProvider.iterator();  //返回该集合的迭代器
 	}
 
-    // 遍历迭代器  判断是否有内容，有内容就取走
+	/**
+	 * 过滤数据，run标记为Y的执行。  获得apiData
+	 *apiDatas
+	 * @return  返回
+	 * @throws DocumentException
+	 */
+	@DataProvider(name = "apiDatas2")
+	public Iterator<Object[]> getApiData2(ITestContext context)
+			throws DocumentException {
+		List<Object[]> dataProvider = new ArrayList<Object[]>();
+		for (ApiDataBean data : dataBean) {
+			if (data.isRun()) {
+				dataProvider.add(new Object[] { data });
+			}
+		}
+		return dataProvider.iterator();  //返回该集合的迭代器
+	}
+
+    // 遍历迭代器  判断是否有内容，有内容就取走  获得close的apidatabean
 	@Test(dataProvider = "apiDatas")
 	public void apiTest(ApiDataBean apiDataBean) throws Exception {
 		ReportUtil.log("--- test start ---");

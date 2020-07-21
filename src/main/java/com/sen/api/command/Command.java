@@ -14,5 +14,7 @@ public interface Command {
 //
 //    Result exec(String command, String param);
 
-    ApiDataBean exec(String command, String param);
+    //ApiDataBean exec(String command, String param);
+
+    ApiDataBean exec(String command, String param,String choose);
 }

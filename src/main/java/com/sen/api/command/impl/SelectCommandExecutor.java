@@ -14,8 +14,40 @@ import com.sen.api.command.CommandConstant;
  */
 public class SelectCommandExecutor extends AbstractCommandExecutor {
     @Override
-    public ApiDataBean exec(String command, String param) {
-        return null;
+    public ApiDataBean exec(String command, String param, String choose) {
+        ApiDataBean apiDataBean = new ApiDataBean();
+        apiDataBean.setRun(true);
+        apiDataBean.setDesc("连小信接口");
+        apiDataBean.setUrl("get");
+        apiDataBean.setMethod("post");
+        String apiParam = null;
+        apiParam = "{\n" +
+                "    \"token\": \"4DBA46139BBD395B8B846C4FEA320927C5AF505A36CC0EE96683CE53AB0D5F6C03\",\n" +
+                "    \"channel\": \"02\",\n" +
+                "    \"currentChat\": \"${currentChat}\",\n" +
+                "    \"result\": [\n" +
+                "        {\n" +
+                "            \"result\": \"${result}\",\n" +
+                "            \"replyType\": \"01\",\n" +
+                "            \"dialogId\": \"${dialogId}\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}\n";
+        apiDataBean.setParam(apiParam);
+        apiDataBean.setContains(false);
+        apiDataBean.setStatus(0);
+        /*
+           save and verify
+        */
+        apiDataBean.setVerify("");
+        if (choose == null) {
+            apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];");
+        } else {
+            apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys[0].itemId["+ choose.trim() + "]");
+        }
+        apiDataBean.setPreParam(null);
+        apiDataBean.setSleep(0);
+        return apiDataBean;
     }
 
     @Override
