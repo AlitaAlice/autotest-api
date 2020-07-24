@@ -23,12 +23,13 @@ public class InputCommandExecutor extends AbstractCommandExecutor {
 
 
     @Override
-    public ApiDataBean exec(String command, String param,String choose) {
+    public ApiDataBean exec(String command, String input,String choose,String verify) {
         ApiDataBean apiDataBean = new ApiDataBean();
         apiDataBean.setRun(true);
         apiDataBean.setDesc("连小信接口");
         apiDataBean.setUrl("get");
         apiDataBean.setMethod("post");
+
         String apiParam = null;
         apiParam = "{\n" +
                 "   \"token\": \"4DBA46139BBD395B8B846C4FEA320927C5AF505A36CC0EE96683CE53AB0D5F6C03\",\n" +
@@ -36,7 +37,7 @@ public class InputCommandExecutor extends AbstractCommandExecutor {
                 "    \"currentChat\": \"${currentChat}\",\n" +
                 "    \"result\": [\n" +
                 "        {\n" +
-                "            \"result\":" +"\""+ param +"\","+
+                "            \"result\":" +"\""+ input.trim() +"\","+
                 "            \"replyType\": \"02\",\n" +
                 "            \"time\": 10250,\n" +
                 "            \"dialogId\": \"${dialogId}\"\n" +
@@ -51,12 +52,29 @@ public class InputCommandExecutor extends AbstractCommandExecutor {
         /*
            save and verify
         */
-        apiDataBean.setVerify("");
-        if (choose == null) {
+        if (verify==null|verify=="-1") {
+            apiDataBean.setVerify("");
+        }else
+        {
+            apiDataBean.setVerify("$.appdata.dialogs.says.content[0]="+verify.trim());
+        }
+
+
+        /**
+         * @Author zhangxl
+         * @Description //TODO choose -> 直接命中选项
+         * choose(text)->response->GiveIndexId
+         * @Date 21:14 2020/7/21
+         * @Param [command, input, choose, verify]
+         * @return com.sen.api.beans.ApiDataBean
+         **/
+        if (choose == null|choose=="-1") {
             apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];");
         } else {
-            apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys[0].itemId[" + choose.trim() + "]");
+            apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys");
+            apiDataBean.setChoosetext(choose);
         }
+
         apiDataBean.setPreParam(null);
         apiDataBean.setSleep(0);
         return apiDataBean;

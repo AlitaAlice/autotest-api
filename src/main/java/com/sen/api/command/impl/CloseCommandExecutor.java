@@ -11,20 +11,20 @@ import com.sen.api.command.CommandConstant;
  * @author zhangxl@biyouxinli.com
  * @date Created in 10:21 2020/7/21
  */
-public class CloseCommandExecutor extends AbstractCommandExecutor{
+public class CloseCommandExecutor extends AbstractCommandExecutor {
     @Override
     public String getCommand() {
         return CommandConstant.CLOSE;
     }
 
     @Override
-    public ApiDataBean exec(String command, String param,String choose) {
+    public ApiDataBean exec(String command, String input,String choose,String verify) {
         ApiDataBean apiDataBean = new ApiDataBean();
         apiDataBean.setRun(true);
         apiDataBean.setDesc("连小信接口");
         apiDataBean.setUrl("close");
         apiDataBean.setMethod("post");
-        String apiParam  = "{\n" +
+        String apiParam = "{\n" +
                 "\"channel\": \"02\",\n" +
                 "\"token\": \"4DBA46139BBD395B8B846C4FEA320927C5AF505A36CC0EE96683CE53AB0D5F6C03\"\n" +
                 "}";
@@ -36,11 +36,18 @@ public class CloseCommandExecutor extends AbstractCommandExecutor{
            save and verify
         */
         apiDataBean.setVerify("");
-        if (choose == null) {
-            apiDataBean.setSave("");
-        } else {
-            apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys[0].itemId[" + choose.trim() + "]");
-        }
+        apiDataBean.setSave("");
+//        if (verify==null|verify=="-1") {
+//            apiDataBean.setVerify("");
+//        }else
+//        {
+//            apiDataBean.setVerify("$.appdata.dialogs.says.content[0]="+verify.trim());
+//        }
+//        if (choose == null|choose=="-1") {
+//            apiDataBean.setSave("");
+//        } else {
+//            apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys[0].itemId[" + choose.trim() + "]");
+//        }
         apiDataBean.setPreParam(null);
         apiDataBean.setSleep(0);
         return apiDataBean;

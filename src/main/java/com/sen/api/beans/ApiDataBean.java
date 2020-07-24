@@ -14,6 +14,7 @@ public class ApiDataBean extends BaseBean {
 	private String verify;
 	private String save;
 	private String preParam;
+	private String choosetext;
 	private int sleep;
 
 	public boolean isRun() {

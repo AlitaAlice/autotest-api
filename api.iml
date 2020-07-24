@@ -31,7 +31,15 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.google.inject:guice:3.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: aopalliance:aopalliance:1.0" level="project" />
-    <orderEntry type="library" name="Maven: com.little:little-utils:1.5.6" level="project" />
+    <orderEntry type="module-library">
+      <library name="Maven: com.sen:little-utils:1.1.9">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/little-utils-1.5.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: com.aventstack:extentreports:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.23" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver:3.3.0" level="project" />

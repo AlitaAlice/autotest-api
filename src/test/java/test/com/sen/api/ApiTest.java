@@ -93,8 +93,6 @@ public class ApiTest extends TestBase {
 		rootUrl = apiConfig.getRootUrl();
 		rooUrlEndWithSlash = rootUrl.endsWith("/");
 
-
-
 		// 读取 param，并将值保存到公共数据map
 		Map<String, String> params = apiConfig.getParams();
 		setSaveDates(params);
@@ -121,11 +119,7 @@ public class ApiTest extends TestBase {
 		// 获得所有的dataList
 		dataList = readExcelData(ApiDataBean.class, excelPath.split(";"),
 				sheetName.split(";"));
-		//System.out.println(dataList.toString());
 
-//		String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://autoTestCase.xlsx" : System.getProperty("excelPath");
-//		dialogCaseList = new ExcelReader(path).read();
-		//System.out.println(dialogCaseList.toString());
 	}
 
 
@@ -137,46 +131,57 @@ public class ApiTest extends TestBase {
 	 * @Date 14:26 2020/7/20
 	 * @Param []
 	 **/
-	//@BeforeTest
+	@BeforeTest
 	public List<ApiDataBean>  transferData() throws IOException, InvalidFormatException {
 
 		String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://autoTestCase4.xlsx" : System.getProperty("excelPath");
 		dialogCaseList = new ExcelReader(path).read();
 		System.out.println(dialogCaseList.toString());
-//		String[] exs = new String[3];
-//		for (int i = 0; i <dialogCaseList.size() ; i++) {
-			DialogCase dialogCase = dialogCaseList.get(0);
-			for (int j = 0; j <dialogCase.getProcesses().size() ; j++)
-			{
-//				for(String retavl:dialogCase.getProcesses().get(j).split(":"))
-//				{
-//					int k = 0;
-//					exs[k] = retavl;
-//					k++;
-//				}
-//				System.out.println(exs.toString());
+		for (int i = 0; i < dialogCaseList.size(); i++) {
+			DialogCase dialogCase = dialogCaseList.get(i);
+			for (int j = 0; j < dialogCase.getProcesses().size(); j++) {
 				String[] exs = dialogCase.getProcesses().get(j).split(":");
 				System.out.println(exs.toString());
 				Command command = CommandFactory.getInstance().get(exs[0]);
 				if (null == command) {
-					throw new RuntimeException("未找到【"+exs[0]+"】操作");
+					throw new RuntimeException("未找到【" + exs[0] + "】操作");
 				}
-				//input 的apiBean
-				//ApiDataBean apiDataBean=command.exec(exs[0], exs.length > 1 ? exs[1] : null);
-				if (exs.length == 3) {
-					ApiDataBean apiDataBean = command.exec(exs[0], exs[1], exs[2]);
-					dataBean.add(apiDataBean);
+				if (exs[0].equals("chat")) {
+					if (exs.length == 2) {
+						ApiDataBean apiDataBean = command.exec(exs[0], null, exs[1], null);
+						dataBean.add(apiDataBean);
+					}
+					if (exs.length == 3) {
+						ApiDataBean apiDataBean = command.exec(exs[0], null, exs[1], exs[2]);
+						dataBean.add(apiDataBean);
+					}
+				} else if (exs[0].equals("select")) {
+					if (exs.length == 2) {
+						ApiDataBean apiDataBean = command.exec(exs[0], null, exs[1], null);
+						dataBean.add(apiDataBean);
+					}
+					if (exs.length == 3) {
+						ApiDataBean apiDataBean = command.exec(exs[0], null, exs[1], exs[2]);
+						dataBean.add(apiDataBean);
+					}
+				} else {
+					if (exs.length == 3) {
+						ApiDataBean apiDataBean = command.exec(exs[0], exs[1], exs[2], null);
+						dataBean.add(apiDataBean);
+					} else if (exs.length == 2) {
+						ApiDataBean apiDataBean = command.exec(exs[0], exs[1], null, null);
+						dataBean.add(apiDataBean);
+					} else if (exs.length == 1) {
+						ApiDataBean apiDataBean = command.exec(exs[0], null, null, null);
+						dataBean.add(apiDataBean);
+					} else if (exs.length == 4) {
+						ApiDataBean apiDataBean = command.exec(exs[0], exs[1], exs[2], exs[3]);
+						dataBean.add(apiDataBean);
+					}
 				}
-				else if (exs.length == 2) {
-					ApiDataBean apiDataBean = command.exec(exs[0], exs[1], null);
-					dataBean.add(apiDataBean);
-				}
-
+				//System.out.println("dataBean：" + dataBean.toString());
 			}
-
-			System.out.println("dataBean："+dataBean.toString());
-
-//		}
+		}
 		return null;
 	}
 
@@ -218,7 +223,7 @@ public class ApiTest extends TestBase {
 	}
 
     // 遍历迭代器  判断是否有内容，有内容就取走  获得close的apidatabean
-	@Test(dataProvider = "apiDatas")
+	@Test(dataProvider = "apiDatas2")
 	public void apiTest(ApiDataBean apiDataBean) throws Exception {
 		ReportUtil.log("--- test start ---");
 		if (apiDataBean.getSleep() > 0) {
@@ -290,10 +295,15 @@ public class ApiTest extends TestBase {
 //				apiDataBean.isContains());
 
 
+		System.out.println(responseData);
 
 		// 对返回结果进行提取保存。
 		saveResult(responseData, apiDataBean.getSave());
 		// 验证预期信息。
+		//getItemId存储
+		saveItemId(responseData, apiDataBean.getSave(), apiDataBean.getChoosetext());
+
+
 		verifyResult(responseData, apiDataBean.getVerify(),
 				apiDataBean.isContains());
 	}

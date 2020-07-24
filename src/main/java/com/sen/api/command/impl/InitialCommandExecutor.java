@@ -17,7 +17,7 @@ public class InitialCommandExecutor  extends AbstractCommandExecutor{
         return CommandConstant.INITIAL;
     }
     @Override
-    public ApiDataBean exec(String command, String param,String choose) {
+    public ApiDataBean exec(String command, String input,String choose,String verify) {
         ApiDataBean apiDataBean = new ApiDataBean();
         apiDataBean.setRun(true);
         apiDataBean.setDesc("连小信接口");
@@ -35,8 +35,14 @@ public class InitialCommandExecutor  extends AbstractCommandExecutor{
         /*
            save and verify
         */
-        apiDataBean.setVerify("");
-        if (choose == null) {
+        if (verify==null|verify=="-1") {
+            apiDataBean.setVerify("");
+        }else
+        {
+            apiDataBean.setVerify("$.appdata.dialogs.says.content[0]="+verify.trim());
+        }
+
+        if (choose == null|choose=="-1") {
             apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];");
         } else {
             apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys[0].itemId[" + choose.trim() + "]");
@@ -45,4 +51,5 @@ public class InitialCommandExecutor  extends AbstractCommandExecutor{
         apiDataBean.setSleep(0);
         return apiDataBean;
     }
+
 }

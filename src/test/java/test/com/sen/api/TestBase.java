@@ -19,6 +19,9 @@ import com.sen.api.utils.ExcelUtil;
 import com.sen.api.utils.FunctionUtil;
 import com.sen.api.utils.ReportUtil;
 import com.sen.api.utils.StringUtil;
+import com.sen.api.utils.*;
+
+import static com.sen.api.utils.MatchUtil.getItemId;
 
 public class TestBase {
 
@@ -218,10 +221,63 @@ public class TestBase {
 			while (m.find()) {
 				key = getBuildValue(json, m.group(1));
 				value = getBuildValue(json, m.group(2));
-
+                //存储公共参数
+				if (key=="result")
+				{
+					String ItemIdValue = getItemId(value, "s");
+					saveDatas.put("ItemId", ItemIdValue);
+				}
 				ReportUtil.log(String.format("存储公共参数   %s值为：%s.", key, value));
 				saveDatas.put(key, value);
 			}
+
+
+		}
+	}
+
+	/**
+	 * 提取json串中的值保存至公共池中
+	 *
+	 * @param json
+	 *            将被提取的json串。
+	 * @param allSave
+	 *            所有将被保存的数据：xx=$.jsonpath.xx;oo=$.jsonpath.oo，将$.jsonpath.
+	 *            xx提取出来的值存放至公共池的xx中，将$.jsonpath.oo提取出来的值存放至公共池的oo中
+	 * @param  choose 要选择的文本
+	 */
+	protected void saveItemId(String json, String allSave,String choose) {
+		if (null == json || "".equals(json) || null == allSave
+				|| "".equals(allSave)) {
+			return;
+		}
+		allSave = getCommonParam(allSave);
+		String[] saves = allSave.split(";");
+		String key, value;
+		for (String save : saves) {
+			// key = save.split("=")[0].trim();
+			// value = JsonPath.read(json,
+			// save.split("=")[1].trim()).toString();
+			// ReportUtil.log(String.format("存储公共参数   %s值为：%s.", key, value));
+			// saveDatas.put(key, value);
+
+			Pattern pattern = Pattern.compile("([^;=]*)=([^;]*)");
+			Matcher m = pattern.matcher(save.trim());
+			while (m.find()) {
+				key = getBuildValue(json, m.group(1));
+				value = getBuildValue(json, m.group(2));
+				//存储公共参数
+				if (key.equals("result"))
+				{
+					String ItemIdValue = getItemId(value, choose);
+					System.out.println("ItemIdValue"+ItemIdValue);
+					key = "ItemId";
+					saveDatas.put(key, ItemIdValue);
+					ReportUtil.log(String.format("存储公共参数   %s值为：%s.", key, ItemIdValue));
+				}
+				//saveDatas.put(key, value);
+			}
+
+
 		}
 	}
 
