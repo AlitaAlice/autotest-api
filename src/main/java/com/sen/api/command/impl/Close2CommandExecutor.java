@@ -11,10 +11,10 @@ import com.sen.api.command.CommandConstant;
  * @author zhangxl@biyouxinli.com
  * @date Created in 10:21 2020/7/21
  */
-public class CloseCommandExecutor extends AbstractCommandExecutor {
+public class Close2CommandExecutor extends AbstractCommandExecutor {
     @Override
     public String getCommand() {
-        return CommandConstant.CLOSE;
+        return CommandConstant.CLOSE2;
     }
 
     @Override
@@ -25,8 +25,9 @@ public class CloseCommandExecutor extends AbstractCommandExecutor {
         apiDataBean.setUrl("close");
         apiDataBean.setMethod("post");
         String apiParam = "{\n" +
-                "\"channel\": \"${channel}\",\n" +
-                "\"token\": \"${token}\"\n" +
+                "    \"token\": \"${token}\",\n" +
+                "    \"channel\": \"${channel}\",\n" +
+                "\"currentChat\": \"${currentChat}\"\n" +
                 "}";
         apiDataBean.setParam(apiParam);
 

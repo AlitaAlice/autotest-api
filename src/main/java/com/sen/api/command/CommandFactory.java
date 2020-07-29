@@ -23,7 +23,9 @@ public class CommandFactory  {
         this.register(CommandConstant.SELECT, new SelectCommandExecutor());
         this.register(CommandConstant.SLIDE, new SlideCommandExecutor());
         this.register(CommandConstant.INPUT, new InputCommandExecutor());
+        this.register(CommandConstant.FINPUT, new FinputCommandExecutor());
         this.register(CommandConstant.CLOSE, new CloseCommandExecutor());
+        this.register(CommandConstant.CLOSE2, new Close2CommandExecutor());
         this.register(CommandConstant.INITIAL, new InitialCommandExecutor());
         this.register(CommandConstant.CHAT, new ChatCommandExecutor());
     }

@@ -12,6 +12,8 @@ public interface CommandConstant {
      * 文本输入
      */
     String INPUT = "input";
+
+    String FINPUT = "finput";
     /**
      * 进程休眠
      */
@@ -34,6 +36,7 @@ public interface CommandConstant {
     String INITIAL = "initial";
 
     String CLOSE = "close";
+    String CLOSE2 = "close2";
 
     String CHAT = "chat";
 

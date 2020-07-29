@@ -11,5 +11,5 @@ import com.sen.api.command.domain.Result;
  * @date 2020/2/5
  */
 public interface Command {
-    ApiDataBean exec(String command, String input,String choose,String verify);
+    ApiDataBean exec(String command, String input,String verify,String choose);
 }

@@ -1,11 +1,15 @@
 package com.sen.api.command.impl;
 
 import com.sen.api.beans.ApiDataBean;
+import com.sen.api.command.Command;
 import com.sen.api.command.CommandConstant;
+import com.sen.api.command.domain.Result;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.SimpleTimeZone;
+import java.util.UUID;
 
 /**
  * Title:
@@ -13,13 +17,16 @@ import java.util.Date;
  * Company: http://www.biyouxinli.com/
  *
  * @author zhangxl@biyouxinli.com
- * @date Created in 15:04 2020/7/22
+ * @date Created in 14:47 2020/7/20
  */
-public class SlideCommandExecutor extends AbstractCommandExecutor {
+public class FinputCommandExecutor extends AbstractCommandExecutor {
+
+
     @Override
     public String getCommand() {
-        return CommandConstant.SLIDE;
+        return CommandConstant.FINPUT;
     }
+
 
     @Override
     public ApiDataBean exec(String command, String input,String verify,String choose) {
@@ -32,6 +39,7 @@ public class SlideCommandExecutor extends AbstractCommandExecutor {
         apiDataBean.setVerifyText(verify);
         apiDataBean.setInputText(input);
         String apiParam = null;
+        String uuid = UUID.randomUUID().toString().substring(0, 5);
         long timeMillis = Calendar.getInstance().getTimeInMillis();
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -49,7 +57,7 @@ public class SlideCommandExecutor extends AbstractCommandExecutor {
                 "        }\n" +
                 "    ],\n" +
                 "    \"currentTime\": \"" + dateFormat.format(date)+"\",\n" +
-                "    \"timestamp\":" +timeMillis+
+                "    \"timestamp\": " +timeMillis+
                 " \n" +
                 "}";
         apiDataBean.setParam(apiParam);
@@ -80,7 +88,7 @@ public class SlideCommandExecutor extends AbstractCommandExecutor {
          * @Param [command, input, choose, verify]
          * @return com.sen.api.beans.ApiDataBean
          **/
-        if (choose == null||choose.equals("-1")) {
+        if (choose == null || choose.equals("-1")) {
             apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];");
         } else {
             apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys");

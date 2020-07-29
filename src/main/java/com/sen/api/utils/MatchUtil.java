@@ -1,10 +1,14 @@
 package com.sen.api.utils;
 
+
+
 import com.alibaba.fastjson.JSONObject;
 import com.sen.api.command.domain.Reply;
 
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Title:
@@ -25,18 +29,24 @@ public class MatchUtil {
      * @return java.lang.String
      **/
     public static String  getItemId(String ResultStr, String chooseStr) {
-        String jsontext = trimString(ResultStr, "[","]");
+//        String jsontext = trimString(ResultStr, "[","]");
         List<Reply> replyList = new ArrayList<>();
-        replyList = JSONObject.parseArray(jsontext, Reply.class);
-       // System.out.println(replyList.toString());
+
+//        replyList = JSONObject.parseArray(jsontext, Reply.class);
+        replyList = JSONObject.parseArray(ResultStr, Reply.class);
         String ItemId = null;
         for (int i = 0; i <replyList.size() ; i++) {
             if(replyList.get(i).getContent().contains(chooseStr))
             {
                 ItemId = replyList.get(i).getItemId();
+                break;
             }
         }
         return ItemId;
+    }
+
+    public static void main(String[] args) {
+        System.out.println((int) ((Math.random() * 9 + 1) * 10000));
     }
 
     /**

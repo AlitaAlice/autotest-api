@@ -18,15 +18,15 @@ public class ChatCommandExecutor extends AbstractCommandExecutor {
     }
 
     @Override
-    public ApiDataBean exec(String command, String input,String choose,String verify) {
+    public ApiDataBean exec(String command, String input,String verify,String choose) {
         ApiDataBean apiDataBean = new ApiDataBean();
         apiDataBean.setRun(true);
         apiDataBean.setDesc("连小信接口");
         apiDataBean.setUrl("get");
         apiDataBean.setMethod("post");
         String apiParam = "{\n" +
-                "   \"token\": \"4DBA46139BBD395B8B846C4FEA320927C5AF505A36CC0EE96683CE53AB0D5F6C03\",\n" +
-                "    \"channel\": \"02\",\n" +
+                "   \"token\": \"${token}\",\n" +
+                "    \"channel\": \"${channel}\",\n" +
                 "    \"currentChat\": \"${currentChat}\"\n" +
                 "}";
         apiDataBean.setParam(apiParam);
@@ -35,12 +35,19 @@ public class ChatCommandExecutor extends AbstractCommandExecutor {
         /*
            save and verify
         */
-        if (verify == null | verify == "-1") {
+//        if (verify == null || verify.equals("-1")) {
+//            apiDataBean.setVerify("");
+//        } else {
+//            apiDataBean.setVerify("$.appdata.dialogs.says.content[0]=" + verify.trim());
+//        }
+        if (verify==null||verify.equals("-1")) {
             apiDataBean.setVerify("");
-        } else {
-            apiDataBean.setVerify("$.appdata.dialogs.says.content[0]=" + verify.trim());
+        }else
+        {
+            apiDataBean.setVerify("$..content="+verify.trim());
         }
-        if (choose == null|choose=="-1") {
+
+        if (choose == null||choose.equals("-1")) {
             apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];");
         } else {
             apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys");
@@ -48,6 +55,9 @@ public class ChatCommandExecutor extends AbstractCommandExecutor {
         }
         apiDataBean.setPreParam(null);
         apiDataBean.setSleep(0);
+        apiDataBean.setCmdText(command);
+        apiDataBean.setVerifyText(verify);
+        apiDataBean.setInputText(input);
         return apiDataBean;
     }
 

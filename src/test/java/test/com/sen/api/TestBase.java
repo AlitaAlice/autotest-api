@@ -22,6 +22,7 @@ import com.sen.api.utils.StringUtil;
 import com.sen.api.utils.*;
 
 import static com.sen.api.utils.MatchUtil.getItemId;
+import static com.sen.api.utils.MatchUtil.trimString;
 
 public class TestBase {
 
@@ -113,7 +114,7 @@ public class TestBase {
 			value = getSaveData(replaceKey);
 			// 如果公共参数池中未能找到对应的值，该用例失败。
 			Assert.assertNotNull(value,
-					String.format("格式化参数失败，公共参数中找不到%s。", replaceKey));
+					"无法找到对应的选项");
 			param = param.replace(m.group(), value);
 		}
 		return param;
@@ -140,7 +141,7 @@ public class TestBase {
 			return;
 		}
 		String allVerify = getCommonParam(verifyStr);
-		ReportUtil.log("验证数据：" + allVerify);
+//		ReportUtil.log("验证数据：" + allVerify);
 		if (contains) {
 			// 验证结果包含
 			AssertUtil.contains(sourchData, allVerify);
@@ -151,9 +152,16 @@ public class TestBase {
 			while (m.find()) {
 				String actualValue = getBuildValue(sourchData, m.group(1));
 				String exceptValue = getBuildValue(sourchData, m.group(2));
-				ReportUtil.log(String.format("验证转换后的值%s=%s", actualValue,
+				String actual = trimString(actualValue, "[","]");
+				ReportUtil.log(String.format("机器人实际回复为 【%s】,实际校验输入为 【%s】", actual,
 						exceptValue));
-				Assert.assertEquals(actualValue, exceptValue, "验证预期结果失败。");
+				if (actual.contains(exceptValue)) {
+					ReportUtil.log("校验机器人回复成功");
+				}
+				else {
+				    Assert.fail("校验机器人回复失败");
+				}
+				//Assert.assertEquals(actual, exceptValue, "验证预期结果失败。");
 			}
 		}
 	}
@@ -221,13 +229,7 @@ public class TestBase {
 			while (m.find()) {
 				key = getBuildValue(json, m.group(1));
 				value = getBuildValue(json, m.group(2));
-                //存储公共参数
-				if (key=="result")
-				{
-					String ItemIdValue = getItemId(value, "s");
-					saveDatas.put("ItemId", ItemIdValue);
-				}
-				ReportUtil.log(String.format("存储公共参数   %s值为：%s.", key, value));
+				ReportUtil.log(String.format("存储公共参数 %s值为：%s.", key, value));
 				saveDatas.put(key, value);
 			}
 
@@ -268,11 +270,15 @@ public class TestBase {
 				//存储公共参数
 				if (key.equals("result"))
 				{
+//					System.out.println("key值为"+key);
+//					System.out.println("value值为"+value);
+//					System.out.println("choose值为"+choose);
+					ReportUtil.log(String.format("所有选项为:%s.", value));
 					String ItemIdValue = getItemId(value, choose);
-					System.out.println("ItemIdValue"+ItemIdValue);
+//					System.out.println("ItemIdValue="+ItemIdValue);
 					key = "ItemId";
 					saveDatas.put(key, ItemIdValue);
-					ReportUtil.log(String.format("存储公共参数   %s值为：%s.", key, ItemIdValue));
+					ReportUtil.log(String.format("存储选项ID—%s值为：%s.", key, ItemIdValue));
 				}
 				//saveDatas.put(key, value);
 			}

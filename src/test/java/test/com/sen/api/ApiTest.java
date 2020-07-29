@@ -66,7 +66,9 @@ public class ApiTest extends TestBase {
 	 * 配置
 	 */
 	private static ApiConfig apiConfig;
+	public static int CaseNumber;
 
+	public static int ProNumber;
 	/**
 	 * 所有api测试用例数据
 	 */
@@ -134,52 +136,78 @@ public class ApiTest extends TestBase {
 	@BeforeTest
 	public List<ApiDataBean>  transferData() throws IOException, InvalidFormatException {
 
-		String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://autoTestCase4.xlsx" : System.getProperty("excelPath");
+		String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://autoTestCase4(2).xlsx" : System.getProperty("excelPath");
 		dialogCaseList = new ExcelReader(path).read();
-		System.out.println(dialogCaseList.toString());
+		//System.out.println(dialogCaseList.toString());
+		//ReportUtil.log(dialogCaseList.toString());
 		for (int i = 0; i < dialogCaseList.size(); i++) {
 			DialogCase dialogCase = dialogCaseList.get(i);
 			for (int j = 0; j < dialogCase.getProcesses().size(); j++) {
 				String[] exs = dialogCase.getProcesses().get(j).split(":");
-				System.out.println(exs.toString());
 				Command command = CommandFactory.getInstance().get(exs[0]);
 				if (null == command) {
 					throw new RuntimeException("未找到【" + exs[0] + "】操作");
 				}
 				if (exs[0].equals("chat")) {
+					// cmd choose
 					if (exs.length == 2) {
-						ApiDataBean apiDataBean = command.exec(exs[0], null, exs[1], null);
+						ApiDataBean apiDataBean = command.exec(exs[0], null, null, exs[1]);
 						dataBean.add(apiDataBean);
 					}
+
+					//cmd verify choose
 					if (exs.length == 3) {
 						ApiDataBean apiDataBean = command.exec(exs[0], null, exs[1], exs[2]);
 						dataBean.add(apiDataBean);
 					}
 				} else if (exs[0].equals("select")) {
+
+					//cmd choose
 					if (exs.length == 2) {
-						ApiDataBean apiDataBean = command.exec(exs[0], null, exs[1], null);
+						ApiDataBean apiDataBean = command.exec(exs[0], null, null, exs[1]);
 						dataBean.add(apiDataBean);
 					}
+					// cmd verify choose
 					if (exs.length == 3) {
 						ApiDataBean apiDataBean = command.exec(exs[0], null, exs[1], exs[2]);
 						dataBean.add(apiDataBean);
 					}
-				} else {
+
+				}
+//				else if (exs[0].equals("input")) {
+//
+//					ApiDataBean apiDataBean_select = command.exec("select", null, null, null);
+//					dataBean.add(apiDataBean_select);
+//					//cmd choose
+//					if (exs.length == 2) {
+//						ApiDataBean apiDataBean = command.exec(exs[0], null, null, exs[1]);
+//						dataBean.add(apiDataBean);
+//					}
+//					// cmd verify choose
+//					if (exs.length == 3) {
+//						ApiDataBean apiDataBean = command.exec(exs[0], null, exs[1], exs[2]);
+//						dataBean.add(apiDataBean);
+//					}
+//				}
+				else {
 					if (exs.length == 3) {
+						//cmd  :input : choose
 						ApiDataBean apiDataBean = command.exec(exs[0], exs[1], exs[2], null);
 						dataBean.add(apiDataBean);
 					} else if (exs.length == 2) {
+						//cmd input
 						ApiDataBean apiDataBean = command.exec(exs[0], exs[1], null, null);
 						dataBean.add(apiDataBean);
 					} else if (exs.length == 1) {
+						//cmd
 						ApiDataBean apiDataBean = command.exec(exs[0], null, null, null);
 						dataBean.add(apiDataBean);
 					} else if (exs.length == 4) {
-						ApiDataBean apiDataBean = command.exec(exs[0], exs[1], exs[2], exs[3]);
+						//cmd input  verify  choose
+ 						ApiDataBean apiDataBean = command.exec(exs[0], exs[1], exs[2], exs[3]);
 						dataBean.add(apiDataBean);
 					}
 				}
-				//System.out.println("dataBean：" + dataBean.toString());
 			}
 		}
 		return null;
@@ -225,16 +253,31 @@ public class ApiTest extends TestBase {
     // 遍历迭代器  判断是否有内容，有内容就取走  获得close的apidatabean
 	@Test(dataProvider = "apiDatas2")
 	public void apiTest(ApiDataBean apiDataBean) throws Exception {
-		ReportUtil.log("--- test start ---");
+		System.out.println("");
+		ReportUtil.log("--- 自动化测试开始 ---");
+		String correnturl =  parseUrl(apiDataBean.getUrl());
+		if (correnturl.equals("http://cbt.shangjin618.com/lianxin-botserver/dialog/close"))
+		{
+			CaseNumber++;
+		}
+
+		if (correnturl.equals("http://cbt.shangjin618.com/lianxin-botserver/dialog/get"))
+		{
+			ReportUtil.log("当前Case为: Case" + CaseNumber);
+			//ReportUtil.log("当前用例为: 用例" + (ProNumber + 3));
+			ProNumber++;
+		}
+		ReportUtil.log(String.format("cmd:%s,input:%s,verify:%s,choose:%s",apiDataBean.getCmdText(),apiDataBean.getInputText(),apiDataBean.getVerifyText(),apiDataBean.getChoosetext()));
 		if (apiDataBean.getSleep() > 0) {
 			// sleep休眠时间大于0的情况下进行暂停休眠
 			ReportUtil.log(String.format("sleep %s seconds",
 					apiDataBean.getSleep()));
 			Thread.sleep(apiDataBean.getSleep() * 1000);
 		}
-
+//		ReportUtil.log("用例选择为: "+apiDataBean.getChoosetext());
 		//获得param
 		String apiParam = buildRequestParam(apiDataBean);
+
 
 		// 封装请求方法 获得method
 		HttpUriRequest method = parseHttpRequest(apiDataBean.getUrl(),
@@ -249,15 +292,7 @@ public class ApiTest extends TestBase {
 			if (apiDataBean.getStatus()!= 0) {
 				Assert.assertEquals(responseStatus, apiDataBean.getStatus(),
 						"返回状态码与预期不符合!");
-			} 
-//			else {
-//				// 非2开头状态码为异常请求，抛异常后会进行重跑
-//				if (200 > responseStatus || responseStatus >= 300) {
-//					ReportUtil.log("返回状态码非200开头："+EntityUtils.toString(response.getEntity(), "UTF-8"));
-//					throw new ErrorRespStatusException("返回状态码异常："
-//							+ responseStatus);
-//				}
-//			}
+			}
 			//获得respEntity
 			HttpEntity respEntity = response.getEntity();
 			Header respContentType = response.getFirstHeader("Content-Type");
@@ -289,13 +324,16 @@ public class ApiTest extends TestBase {
 			method.abort();
 		}
 		// 输出返回数据log
-		ReportUtil.log("resp:" + responseData);
+		ReportUtil.log("小信响应为:" + responseData);
+		String reg = "[^\u4e00-\u9fa5]";
+		String chineseContent = responseData.replaceAll(reg, "");
+		//ReportUtil.log("所有的回复为:"+chineseContent);
 //		// 验证预期信息
 //		verifyResult(responseData, apiDataBean.getVerify(),
 //				apiDataBean.isContains());
 
 
-		System.out.println(responseData);
+		//System.out.println(responseData);
 
 		// 对返回结果进行提取保存。
 		saveResult(responseData, apiDataBean.getSave());
@@ -306,6 +344,7 @@ public class ApiTest extends TestBase {
 
 		verifyResult(responseData, apiDataBean.getVerify(),
 				apiDataBean.isContains());
+		Thread.sleep(500);
 	}
 
 	private String buildRequestParam(ApiDataBean apiDataBean) {
@@ -332,9 +371,10 @@ public class ApiTest extends TestBase {
 	private HttpUriRequest parseHttpRequest(String url, String method, String param) throws UnsupportedEncodingException {
 		// 处理url
 		url = parseUrl(url);
-		ReportUtil.log("method:" + method);
-		ReportUtil.log("url:" + url);
-		ReportUtil.log("param:" + param.replace("\r\n", "").replace("\n", ""));
+//		ReportUtil.log("请求方式:" + method);
+		ReportUtil.log("请求链接:" + url);
+		//ReportUtil.log("请求数据为:" + param.replace("\r\n", "").replace("\n", ""));
+		ReportUtil.log("请求数据为:" + param.replace("\r\n", ""));
 		//upload表示上传，也是使用post进行请求
 		if ("post".equalsIgnoreCase(method) || "upload".equalsIgnoreCase(method)) {
 			// 封装post方法

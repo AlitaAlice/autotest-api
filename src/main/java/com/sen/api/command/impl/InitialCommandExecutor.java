@@ -3,6 +3,11 @@ package com.sen.api.command.impl;
 import com.sen.api.beans.ApiDataBean;
 import com.sen.api.command.CommandConstant;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.UUID;
+
 /**
  * Title:
  * Description:
@@ -17,32 +22,47 @@ public class InitialCommandExecutor  extends AbstractCommandExecutor{
         return CommandConstant.INITIAL;
     }
     @Override
-    public ApiDataBean exec(String command, String input,String choose,String verify) {
+    public ApiDataBean exec(String command, String input,String verify,String choose) {
         ApiDataBean apiDataBean = new ApiDataBean();
         apiDataBean.setRun(true);
         apiDataBean.setDesc("连小信接口");
         apiDataBean.setUrl("get");
         apiDataBean.setMethod("post");
         String apiParam = null;
+        long timeMillis = Calendar.getInstance().getTimeInMillis();
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         apiParam = "{\n" +
-                "    \"token\": \"4DBA46139BBD395B8B846C4FEA320927C5AF505A36CC0EE96683CE53AB0D5F6C03\",\n" +
-                "    \"channel\": \"02\"\n" +
+                "    \"token\": \"${token}\",\n" +
+                "    \"channel\": \"${channel}\",\n" +
+                "    \"currentChat\": null,\n" +
+                "    \"currentTime\": \"" + dateFormat.format(date)+"\",\n" +
+                "    \"timestamp\":" +timeMillis+
+                " \n" +
                 "}";
 
         apiDataBean.setParam(apiParam);
         apiDataBean.setContains(false);
         apiDataBean.setStatus(0);
+        apiDataBean.setCmdText(command);
+        apiDataBean.setVerifyText(verify);
+        apiDataBean.setInputText(input);
         /*
            save and verify
         */
-        if (verify==null|verify=="-1") {
+//        if (verify==null||verify=="-1") {
+//            apiDataBean.setVerify("");
+//        }else
+//        {
+//            apiDataBean.setVerify("$.appdata.dialogs.says.content[0]="+verify.trim());
+//        }
+        if (verify==null||verify.equals("-1")) {
             apiDataBean.setVerify("");
         }else
         {
-            apiDataBean.setVerify("$.appdata.dialogs.says.content[0]="+verify.trim());
+            apiDataBean.setVerify("$..content="+verify.trim());
         }
-
-        if (choose == null|choose=="-1") {
+        if (choose == null||choose=="-1") {
             apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];");
         } else {
             apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys[0].itemId[" + choose.trim() + "]");
