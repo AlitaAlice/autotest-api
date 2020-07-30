@@ -188,7 +188,7 @@ public class ApiTest extends TestBase {
                     }
 
                 }
-//				else if (exs[0].equals("input")) {
+//				else if (exs[0].equals("input")||exs[0].equals("slide")) {
 //
 //					ApiDataBean apiDataBean_select = command.exec("select", null, null, null);
 //					dataBean.add(apiDataBean_select);

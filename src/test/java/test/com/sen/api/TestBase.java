@@ -163,7 +163,7 @@ public class TestBase {
 					ReportUtil.log("校验机器人回复成功");
 				}
 				else {
-				    Assert.fail("校验机器人回复失败");
+				    Assert.fail("校验]机器人回复失败");
 					ReportUtil.log("校验机器人回复失败");
 				}
 				//Assert.assertEquals(actual, exceptValue, "验证预期结果失败。");
