@@ -53,7 +53,7 @@ public class Close2CommandExecutor extends AbstractCommandExecutor {
 //            apiDataBean.setSave("currentChat=$.appdata.chatId;dialogId=$.appdata.dialogs.dialogId[0];result=$.appdata.dialogs.replys[0].itemId[" + choose.trim() + "]");
 //        }
         apiDataBean.setPreParam(null);
-        apiDataBean.setSleep(0);
+        apiDataBean.setSleep(2);
         return apiDataBean;
     }
 }

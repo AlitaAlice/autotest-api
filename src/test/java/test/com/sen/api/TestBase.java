@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.dom4j.DocumentException;
 import org.testng.Assert;
 
@@ -31,6 +33,8 @@ public class TestBase {
 	 */
 	private static Map<String, String> saveDatas = new HashMap<String, String>();
 
+
+	public static String ItemIdValue;
 	/**
 	 * 替换符，如果数据中包含“${}”则会被替换成公共参数中存储的数据
 	 */
@@ -160,6 +164,7 @@ public class TestBase {
 				}
 				else {
 				    Assert.fail("校验机器人回复失败");
+					ReportUtil.log("校验机器人回复失败");
 				}
 				//Assert.assertEquals(actual, exceptValue, "验证预期结果失败。");
 			}
@@ -250,7 +255,7 @@ public class TestBase {
 	protected void saveItemId(String json, String allSave,String choose) {
 		if (null == json || "".equals(json) || null == allSave
 				|| "".equals(allSave)) {
-			return;
+			return ;
 		}
 		allSave = getCommonParam(allSave);
 		String[] saves = allSave.split(";");
@@ -270,20 +275,21 @@ public class TestBase {
 				//存储公共参数
 				if (key.equals("result"))
 				{
-//					System.out.println("key值为"+key);
-//					System.out.println("value值为"+value);
-//					System.out.println("choose值为"+choose);
 					ReportUtil.log(String.format("所有选项为:%s.", value));
-					String ItemIdValue = getItemId(value, choose);
-//					System.out.println("ItemIdValue="+ItemIdValue);
+					ItemIdValue = getItemId(value, choose);
 					key = "ItemId";
-					saveDatas.put(key, ItemIdValue);
+					/**
+					 * 只有当ItemIdValue不为空的时候才进行存储
+					 */
+					while (StringUtils.isNotBlank(ItemIdValue)) {
+						saveDatas.put(key, ItemIdValue);
+						break;
+					}
+					//存储选项，给下一次select命令来选择
 					ReportUtil.log(String.format("存储选项ID—%s值为：%s.", key, ItemIdValue));
 				}
 				//saveDatas.put(key, value);
 			}
-
-
 		}
 	}
 
@@ -292,12 +298,6 @@ public class TestBase {
 	 * 
 	 * @param clz
 	 *            需要转换的类
-	 * @param excelPaths
-	 *            所有excel的路径配置
-	 * @param excelName
-	 *            本次需要过滤的excel文件名
-	 * @param sheetName
-	 *            本次需要过滤的sheet名
 	 * @return 返回数据
 	 * @throws DocumentException
 	 */
