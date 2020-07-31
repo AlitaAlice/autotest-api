@@ -1,14 +1,11 @@
 package com.sen.api.command.impl;
 
 import com.sen.api.beans.ApiDataBean;
-import com.sen.api.command.Command;
 import com.sen.api.command.CommandConstant;
-import com.sen.api.command.domain.Result;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.SimpleTimeZone;
 import java.util.UUID;
 
 /**
@@ -17,10 +14,9 @@ import java.util.UUID;
  * Company: http://www.biyouxinli.com/
  *
  * @author zhangxl@biyouxinli.com
- * @date Created in 14:47 2020/7/20
+ * @date Created in 19:39 2020/7/30
  */
-public class FinputCommandExecutor extends AbstractCommandExecutor {
-
+public class FinputCommandExecutor  extends AbstractCommandExecutor {
 
     @Override
     public String getCommand() {
@@ -29,7 +25,7 @@ public class FinputCommandExecutor extends AbstractCommandExecutor {
 
 
     @Override
-    public ApiDataBean exec(String command, String input,String verify,String choose) {
+    public ApiDataBean exec(String command, String input, String verify, String choose) {
         ApiDataBean apiDataBean = new ApiDataBean();
         apiDataBean.setRun(true);
         apiDataBean.setDesc("连小信接口");
@@ -50,6 +46,7 @@ public class FinputCommandExecutor extends AbstractCommandExecutor {
                 "    \"result\": [\n" +
                 "        {\n" +
                 "            \"result\":" +"\""+ input.trim() +"\",\n"+
+                "            \"showText\":" +"\""+ input.trim() +"\",\n"+
                 "            \"replyType\": \"02\",\n" +
                 "            \"time\": " +(int) ((Math.random() * 9 + 1) * 10000)+
                 ",\n" +
