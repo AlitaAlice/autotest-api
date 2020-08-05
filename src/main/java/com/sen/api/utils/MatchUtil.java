@@ -45,9 +45,9 @@ public class MatchUtil {
         return ItemId;
     }
 
-    public static void main(String[] args) {
+    public void a()
+    {}
 
-    }
 
     /**
      * <h5>功能:去除字符串开头结尾的指定字符串</h5>

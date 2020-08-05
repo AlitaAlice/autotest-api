@@ -27,6 +27,7 @@ public class FunctionUtil{
 			}
 		});
 	}
+
 	
 	public static boolean isFunction(String functionName){
 		return functionsMap.containsKey(functionName);
@@ -41,6 +42,5 @@ public class FunctionUtil{
 			return "";
 		}
 	}
-
 }
 

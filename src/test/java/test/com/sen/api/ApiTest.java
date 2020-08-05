@@ -78,6 +78,8 @@ public class ApiTest extends TestBase {
 
     protected List<ApiDataBean> dataBean = new ArrayList<>();
     protected List<ApiDataBean> dataBean2 = new ArrayList<>();
+    protected List<ApiDataBean> dataBean3 = new ArrayList<>();
+
     private static HttpClient client;
 
     static volatile boolean cleanedUp = false;
@@ -147,7 +149,7 @@ public class ApiTest extends TestBase {
     @BeforeTest
     public List<ApiDataBean> transferData() throws IOException, InvalidFormatException {
 
-        String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://autoTestCase4(6).xlsx" : System.getProperty("excelPath");
+        String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://最终版4.xlsx" : System.getProperty("excelPath");
         dialogCaseList = new ExcelReader(path).read();
         //System.out.println(dialogCaseList.toString());
         //ReportUtil.log(dialogCaseList.toString());
@@ -219,9 +221,6 @@ public class ApiTest extends TestBase {
                         ApiDataBean apiDataBean = command.exec(exs[0], null, null, null);
                         dataBean.add(apiDataBean);
                     } else if (exs.length == 4) {
-//                        Command command2 = CommandFactory.getInstance().get("select");
-//                        ApiDataBean apiDataBean_select = command2.exec("select", null, null, "-1");
-//                        dataBean.add(apiDataBean_select);
                         //cmd input  verify  choose
                         ApiDataBean apiDataBean = command.exec(exs[0], exs[1], exs[2], exs[3]);
                         dataBean.add(apiDataBean);
@@ -229,40 +228,41 @@ public class ApiTest extends TestBase {
                 }
             }
         }
+
         dataBean2.addAll(dataBean);
-        int j = 0;
-        for (int i = 0; i < dataBean.size() ; i++) {
-            if (dataBean.get(i).getCmdText().equals("input")||dataBean.get(i).getCmdText().equals("slide")) {
-                if (StringUtils.isNotBlank(dataBean.get(i).getChoosetext())) {
-                    Command command2 = CommandFactory.getInstance().get("select");
-                    ApiDataBean apiDataBean_select = command2.exec("select", null, null, "-1");
-                    dataBean2.add(j+i,apiDataBean_select);
-                    j++;
-                }
-                continue;
-            }
-        }
-        dataBean2.remove(2);
+//        int j = 0;
+//        for (int i = 0; i < dataBean.size() ; i++) {
+//            if (dataBean.get(i).getCmdText().equals("input")||dataBean.get(i).getCmdText().equals("slide")) {
+//                if (StringUtils.isNotBlank(dataBean.get(i).getChoosetext())) {
+//                    Command command2 = CommandFactory.getInstance().get("select");
+//                    ApiDataBean apiDataBean_select = command2.exec("select", null, null, "-1");
+//                    dataBean2.add(j+i,apiDataBean_select);
+//                    j++;
+//                }
+//                continue;
+//            }
+//        }
+//        dataBean2.remove(2);
 //        Command command2 = CommandFactory.getInstance().get("select");
 //        ApiDataBean apiDataBean_select = command2.exec("select", null, null, "-1");
 //        dataBean2.add(dataBean2.size(),apiDataBean_select);
 
-        int x = 0;
-        System.out.println(dataBean2.toString());
-//        for (int i = 0; i <dataBean2.size() ; i++) {
-//            if (dataBean2.get(i).getCmdText().equals("input") && dataBean2.get(i + 2).getCmdText().equals("input")) {
-//                dataBean2.remove(i + 1);
-//            }
-//            if (dataBean2.get(i).getCmdText().equals("slide") && dataBean2.get(i + 2).getCmdText().equals("slide")) {
-//                dataBean2.remove(i + 1);
-//            }
-//            if (dataBean2.get(i).getCmdText().equals("slide") && dataBean2.get(i + 2).getCmdText().equals("input")) {
-//                dataBean2.remove(i + 1);
-//            }
-//            if (dataBean2.get(i).getCmdText().equals("input") && dataBean2.get(i + 2).getCmdText().equals("slide")) {
-//                dataBean2.remove(i + 1);
-//            }
-//        }
+//        dataBean3.addAll(dataBean2)
+        int j=0;
+        for (int i = 0; i <dataBean.size() ; i++) {
+            if (dataBean.get(i).getCmdText().equals("select") && (dataBean.get(i + 1).getCmdText().equals("input")||dataBean.get(i + 1).getCmdText().equals("slide"))) {
+                Command command2 = CommandFactory.getInstance().get("select");
+                ApiDataBean apiDataBean_select = command2.exec("select", null, null, "-1");
+                dataBean2.add(j+i,apiDataBean_select);
+                j++;
+            }
+            else if ((dataBean.get(i).getCmdText().equals("input")||dataBean.get(i).getCmdText().equals("slide"))&& (StringUtils.isNotBlank(dataBean.get(i).getChoosetext())) &&(dataBean.get(i+1).getCmdText().equals("input")||dataBean.get(i+1).getCmdText().equals("slide")))
+           {
+                Command command2 = CommandFactory.getInstance().get("select");
+                ApiDataBean apiDataBean_select = command2.exec("select", null, null, "-1");
+                dataBean2.add(i,apiDataBean_select);
+           }
+        }
 //        System.out.println(dataBean2);
         return null;
     }
@@ -297,7 +297,7 @@ public class ApiTest extends TestBase {
     public Iterator<Object[]> getApiData2(ITestContext context)
             throws DocumentException {
         List<Object[]> dataProvider = new ArrayList<Object[]>();
-        for (ApiDataBean data : dataBean2) {
+        for (ApiDataBean data : dataBean) {
             if (data.isRun()) {
                 dataProvider.add(new Object[]{data});
             }

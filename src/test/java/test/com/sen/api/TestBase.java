@@ -182,7 +182,7 @@ public class TestBase {
 		key = key.trim();
 		Matcher funMatch = funPattern.matcher(key);
 		if (key.startsWith("$.")) {// jsonpath
-			key = JSONPath.read(sourchJson, key).toString();
+    key = JSONPath.read(sourchJson, key).toString();
 		} else if (funMatch.find()) {
 			// String args;
 			// if (funMatch.group(2).startsWith("$.")) {
