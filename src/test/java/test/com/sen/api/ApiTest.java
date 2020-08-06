@@ -149,7 +149,7 @@ public class ApiTest extends TestBase {
     @BeforeTest
     public List<ApiDataBean> transferData() throws IOException, InvalidFormatException {
 
-        String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://最终版4.xlsx" : System.getProperty("excelPath");
+        String path = StringUtils.isEmpty(System.getProperty("excelPath")) ? "E://autoTestCase4(6).xlsx" : System.getProperty("excelPath");
         dialogCaseList = new ExcelReader(path).read();
         //System.out.println(dialogCaseList.toString());
         //ReportUtil.log(dialogCaseList.toString());
@@ -248,22 +248,26 @@ public class ApiTest extends TestBase {
 //        dataBean2.add(dataBean2.size(),apiDataBean_select);
 
 //        dataBean3.addAll(dataBean2)
-        int j=0;
+        int j=1;
         for (int i = 0; i <dataBean.size() ; i++) {
-            if (dataBean.get(i).getCmdText().equals("select") && (dataBean.get(i + 1).getCmdText().equals("input")||dataBean.get(i + 1).getCmdText().equals("slide"))) {
+            try {
+                if (dataBean.get(i).getCmdText().equals("select") &&((dataBean.get(i + 1).getCmdText().equals("input") || dataBean.get(i + 1).getCmdText().equals("slide")))) {
+                    Command command2 = CommandFactory.getInstance().get("select");
+                    ApiDataBean apiDataBean_select = command2.exec("select", null, null, "-1");
+                    dataBean2.add(j + i, apiDataBean_select);
+                    j++;
+                }
+            else if ((dataBean.get(i).getCmdText().equals("input") || dataBean.get(i).getCmdText().equals("slide")) && (StringUtils.isNotBlank(dataBean.get(i).getChoosetext())) && (dataBean.get(i + 1).getCmdText()  .equals("input") || dataBean.get(i + 1).getCmdText().equals("slide"))) {
                 Command command2 = CommandFactory.getInstance().get("select");
                 ApiDataBean apiDataBean_select = command2.exec("select", null, null, "-1");
-                dataBean2.add(j+i,apiDataBean_select);
+                dataBean2.add(j + i, apiDataBean_select);
                 j++;
             }
-            else if ((dataBean.get(i).getCmdText().equals("input")||dataBean.get(i).getCmdText().equals("slide"))&& (StringUtils.isNotBlank(dataBean.get(i).getChoosetext())) &&(dataBean.get(i+1).getCmdText().equals("input")||dataBean.get(i+1).getCmdText().equals("slide")))
-           {
-                Command command2 = CommandFactory.getInstance().get("select");
-                ApiDataBean apiDataBean_select = command2.exec("select", null, null, "-1");
-                dataBean2.add(i,apiDataBean_select);
-           }
+            } catch (IndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
         }
-//        System.out.println(dataBean2);
+        System.out.println(dataBean2);
         return null;
     }
 
@@ -297,7 +301,7 @@ public class ApiTest extends TestBase {
     public Iterator<Object[]> getApiData2(ITestContext context)
             throws DocumentException {
         List<Object[]> dataProvider = new ArrayList<Object[]>();
-        for (ApiDataBean data : dataBean) {
+        for (ApiDataBean data : dataBean2) {
             if (data.isRun()) {
                 dataProvider.add(new Object[]{data});
             }
